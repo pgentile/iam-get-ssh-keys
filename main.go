@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log/syslog"
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -41,8 +42,18 @@ func readSSHKeys(client *iam.IAM, userName *string) ([]*string, error) {
 }
 
 func main() {
+	logger, err := syslog.New(syslog.LOG_NOTICE, "")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "ERROR: Can't connect to syslog: %s\n", err)
+		os.Exit(1)
+		return
+	}
+	defer logger.Close()
+
 	flag.Parse()
 	userName := flag.Arg(0)
+
+	logger.Notice(fmt.Sprintf("Getting SSH keys for user %s in AWS IAM", userName))
 
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -52,6 +63,7 @@ func main() {
 
 	keys, err := readSSHKeys(client, &userName)
 	if err != nil {
+		logger.Err(fmt.Sprintf("Failed to get SSH keys for user %s in AWS IAM: %s", userName, err))
 		fmt.Fprintf(os.Stderr, "ERROR: %s\n", err)
 		os.Exit(1)
 		return
