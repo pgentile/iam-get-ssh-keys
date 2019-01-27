@@ -2,6 +2,7 @@
 
 
 [[projects]]
+  digest = "1:926556e3a7941e4273d319716c4d75ff62417ab8449ae64319d7a87978bfad26"
   name = "github.com/aws/aws-sdk-go"
   packages = [
     "aws",
@@ -13,15 +14,19 @@
     "aws/credentials",
     "aws/credentials/ec2rolecreds",
     "aws/credentials/endpointcreds",
+    "aws/credentials/processcreds",
     "aws/credentials/stscreds",
+    "aws/csm",
     "aws/defaults",
     "aws/ec2metadata",
     "aws/endpoints",
     "aws/request",
     "aws/session",
     "aws/signer/v4",
+    "internal/ini",
     "internal/sdkio",
     "internal/sdkrand",
+    "internal/sdkuri",
     "internal/shareddefaults",
     "private/protocol",
     "private/protocol/query",
@@ -29,25 +34,25 @@
     "private/protocol/rest",
     "private/protocol/xml/xmlutil",
     "service/iam",
-    "service/sts"
+    "service/sts",
   ]
-  revision = "4c9c8e98642a1a5e7c27d7a644cf9140809d49ee"
-  version = "v1.13.13"
+  pruneopts = "UT"
+  revision = "81f3829f5a9d041041bdf56e55926691309d7699"
+  version = "v1.16.26"
 
 [[projects]]
-  name = "github.com/go-ini/ini"
-  packages = ["."]
-  revision = "6333e38ac20b8949a8dd68baa3650f4dee8f39f0"
-  version = "v1.33.0"
-
-[[projects]]
+  digest = "1:bb81097a5b62634f3e9fec1014657855610c82d19b9a40c17612e32651e35dca"
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
-  revision = "0b12d6b5"
+  pruneopts = "UT"
+  revision = "c2b33e84"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c382fd6351805d081baa4e01be43c948945ba23883c8298aced5b9659184c061"
+  input-imports = [
+    "github.com/aws/aws-sdk-go/aws/session",
+    "github.com/aws/aws-sdk-go/service/iam",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
