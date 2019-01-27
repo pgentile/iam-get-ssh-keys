@@ -4,7 +4,8 @@ go:
   - "1.11"
 
 before_script:
-  - dep ensure
+  - "curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh"
+  - "dep ensure"
 
 script:
-  - go build
+  - "go build"
