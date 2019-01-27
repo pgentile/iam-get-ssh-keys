@@ -8,4 +8,11 @@ before_script:
   - "dep ensure"
 
 script:
-  - "go build"
+  - "go install"
+
+deploy:
+  provider: releases
+  api_key: "$GITHUB_OAUTH_TOKEN"
+  file: "$GOPATH/bin/iam-get-ssh-keys"
+  skip_cleanup: true
+  draft: true
