@@ -2,5 +2,11 @@
   "extends": [
     "config:base",
     ":automergeMinor"
+  ],
+  "packageRules": [
+    {
+      "packagePatterns": ["aws-sdk-go"],
+      "automerge": false
+    }
   ]
 }
